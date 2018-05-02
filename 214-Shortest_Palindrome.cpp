@@ -69,3 +69,22 @@ private:
         return true;
     }
 };
+
+
+/*
+Right sol: use KMP
+class Solution {
+public:
+    string shortestPalindrome(string s) {
+        string r = s;
+        reverse(r.begin(), r.end());
+        string t = s + "#" + r; //add '#' for case s = 'aabba', t = 'aabbaabbaa'
+        vector<int> next(t.size(), 0);
+        for (int i = 1; i < t.size(); ++i) {
+            int j = next[i - 1];
+            while (j > 0 && t[i] != t[j]) j = next[j - 1];
+            next[i] = (j += t[i] == t[j]);
+        }
+}
+};
+
