@@ -70,3 +70,38 @@ public:
         
     }
 };
+
+
+
+//Sol2: better structure
+
+class Solution {
+public:
+    int lengthLongestPath(string input) {
+        int res = 0;
+        unordered_map<int, int> map;
+        int level = 0;
+        int letter_l = 0;
+        for(int i = 0; i <= input.size(); i++)
+        {
+            
+            if(input[i] == '\n' || i == input.size())
+            {
+                string cur = input.substr(i-letter_l, letter_l);
+                if(cur.find('.') != string::npos)
+                    res = max(res, map[level-1] + letter_l);
+                else if(level != 0)
+                    map[level] = map[level-1] + letter_l + 1;
+                else
+                    map[level] = letter_l + 1;
+                letter_l = 0;
+                level = 0;
+            }
+            else if(input[i] == '\t')
+                level++;
+            else
+                letter_l++;
+        }
+        return res;
+    }
+};
