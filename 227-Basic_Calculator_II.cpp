@@ -90,3 +90,52 @@ public:
         
     }
 };
+
+
+//Sol2: better. record sign and push digits into stack. if sign == '+', push +digits, '-' push -digits
+
+class Solution {
+public:
+    int calculate(string s) {
+        int res = 0;
+        stack<int> st;
+        char sign = '+';
+        int digits = 0;
+        for(int i = 0; i <= s.size(); i++)
+        {
+                      
+            if(i == s.size() || s[i] == '+' || s[i] == '-' || s[i] =='*' || s[i] == '/')
+            {
+                if(sign == '+')
+                    st.push(digits);
+                if(sign == '-')
+                    st.push(digits * -1);
+                if(sign == '*')
+                {
+                    int prev = st.top(); st.pop();
+                    st.push(prev*digits);
+                }
+                if(sign == '/')
+                {
+                    int prev = st.top(); st.pop();
+                    st.push(prev/digits);
+                }
+                if(i != s.size())
+                    sign = s[i];
+                digits = 0;
+            }
+            if(s[i] >= '0' && s[i] <= '9')
+                digits = digits*10 + s[i]-'0';
+            if(s[i] == ' ')
+                continue;             
+        }
+        
+        
+        while(!st.empty())
+        {
+            res += st.top();
+            st.pop();
+        }
+        return res;
+    }
+};
