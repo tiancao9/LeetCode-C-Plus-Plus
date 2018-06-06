@@ -22,6 +22,7 @@ Output: The root of a Greater Tree like this:
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+// recursion, add right path first and get the cur_sum
 class Solution {
 public:
     TreeNode* convertBST(TreeNode* root) {
