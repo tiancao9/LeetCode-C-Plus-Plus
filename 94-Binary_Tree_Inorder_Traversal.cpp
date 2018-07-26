@@ -65,3 +65,32 @@ public:
         
     }        
 };
+
+//Sol2: while (!s.empty() || cur)
+
+class Solution {
+    
+
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> res;
+        if(!root) return res;
+        stack<TreeNode*> s;
+        TreeNode* cur = root;
+        while(!s.empty() || cur)
+        {
+            if(cur)
+            {
+                s.push(cur);
+                cur = cur->left;
+            }
+            else
+            {
+                cur = s.top(); s.pop();
+                res.push_back(cur->val);
+                cur = cur->right;
+            }
+        }
+     return res;
+    }        
+};
