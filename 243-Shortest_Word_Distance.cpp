@@ -11,6 +11,7 @@ Output: 1
 Note:
 You may assume that word1 does not equal to word2, and word1 and word2 are both in the list.
 */
+
 // Use 2 vector to record the index of word1 and word2
 // Compare w_index1.back() and w2_index.back() and record the min
 class Solution {
