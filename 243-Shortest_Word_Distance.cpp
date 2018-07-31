@@ -12,6 +12,7 @@ Note:
 You may assume that word1 does not equal to word2, and word1 and word2 are both in the list.
 */
 
+// Use 2 vector to record the index of word1 and word2
 class Solution {
 public:
     int shortestDistance(vector<string>& words, string word1, string word2) {
