@@ -64,3 +64,19 @@ public:
         return res == INT_MAX? -1 : res;
     }
 };
+
+// Sol2: DP. dp[k][flight[1]] = min(dp[k-1][flight[1]], dp[k-1][flight[0]] + flight[2]).
+class Solution {
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int K) {
+        vector<vector<int>> dp(K + 2, vector<int>(n, 1e9));
+        dp[0][src] = 0;
+        for (int k = 1; k < K+2; k++) {
+            dp[k][src] = 0;
+            for (auto& flight : flights) {
+                dp[k][flight[1]] = min(dp[k][flight[1]], dp[k-1][flight[0]] + flight[2]);
+            }
+        }
+        return dp[K+1][dst] == 1e9? -1 : dp[K+1][dst];
+    }
+}; 
