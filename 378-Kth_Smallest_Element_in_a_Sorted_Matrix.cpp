@@ -36,3 +36,39 @@ public:
         return pq.top();
     }
 };
+
+// Sol2: binary search, O(nlogK), n is the column number and k is max - min.
+class Solution {
+public:
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+        if (matrix.empty() || matrix[0].empty()) return -1;
+        int m = matrix.size(), n = matrix[0].size();
+        int left = matrix[0][0];
+        int right = matrix[m - 1][n - 1];
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            int index = FindLessEqualIndex(matrix, mid);
+            if (index < k) {
+                left = mid + 1; 
+            } else {
+                right = mid;
+            }
+        }
+        return left;
+    }
+private:
+    int FindLessEqualIndex(vector<vector<int>>& matrix, int target) {
+        int m = matrix.size(), n = matrix[0].size();
+        int res = 0;
+        int i = m - 1, j = 0;
+        while ( i >= 0 && j < n) {
+            if (matrix[i][j] <= target) {
+                res += i + 1;
+                j++;
+            } else {
+                i--;
+            }
+        }
+        return res;
+    }
+};
